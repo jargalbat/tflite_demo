@@ -4,10 +4,10 @@ import 'dart:math';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-// import 'package:image/image.dart' as img;
+import 'package:image/image.dart' as img;
 
 import 'package:tflite/tflite.dart';
-// import 'package:image_picker/image_picker.dart';
+import 'package:image_picker/image_picker.dart';
 
 void main() => runApp(new App());
 
@@ -39,14 +39,14 @@ class _MyAppState extends State<MyApp> {
   double _imageWidth;
   bool _busy = false;
 
-  // Future predictImagePicker() async {
-  //   var image = await ImagePicker.pickImage(source: ImageSource.gallery);
-  //   if (image == null) return;
-  //   setState(() {
-  //     _busy = true;
-  //   });
-  //   predictImage(image);
-  // }
+  Future predictImagePicker() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    if (image == null) return;
+    setState(() {
+      _busy = true;
+    });
+    predictImage(image);
+  }
 
   Future predictImage(File image) async {
     if (image == null) return;
@@ -142,36 +142,36 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-  // Uint8List imageToByteListFloat32(
-  //     img.Image image, int inputSize, double mean, double std) {
-  //   var convertedBytes = Float32List(1 * inputSize * inputSize * 3);
-  //   var buffer = Float32List.view(convertedBytes.buffer);
-  //   int pixelIndex = 0;
-  //   for (var i = 0; i < inputSize; i++) {
-  //     for (var j = 0; j < inputSize; j++) {
-  //       var pixel = image.getPixel(j, i);
-  //       buffer[pixelIndex++] = (img.getRed(pixel) - mean) / std;
-  //       buffer[pixelIndex++] = (img.getGreen(pixel) - mean) / std;
-  //       buffer[pixelIndex++] = (img.getBlue(pixel) - mean) / std;
-  //     }
-  //   }
-  //   return convertedBytes.buffer.asUint8List();
-  // }
+  Uint8List imageToByteListFloat32(
+      img.Image image, int inputSize, double mean, double std) {
+    var convertedBytes = Float32List(1 * inputSize * inputSize * 3);
+    var buffer = Float32List.view(convertedBytes.buffer);
+    int pixelIndex = 0;
+    for (var i = 0; i < inputSize; i++) {
+      for (var j = 0; j < inputSize; j++) {
+        var pixel = image.getPixel(j, i);
+        buffer[pixelIndex++] = (img.getRed(pixel) - mean) / std;
+        buffer[pixelIndex++] = (img.getGreen(pixel) - mean) / std;
+        buffer[pixelIndex++] = (img.getBlue(pixel) - mean) / std;
+      }
+    }
+    return convertedBytes.buffer.asUint8List();
+  }
 
-  // Uint8List imageToByteListUint8(img.Image image, int inputSize) {
-  //   var convertedBytes = Uint8List(1 * inputSize * inputSize * 3);
-  //   var buffer = Uint8List.view(convertedBytes.buffer);
-  //   int pixelIndex = 0;
-  //   for (var i = 0; i < inputSize; i++) {
-  //     for (var j = 0; j < inputSize; j++) {
-  //       var pixel = image.getPixel(j, i);
-  //       buffer[pixelIndex++] = img.getRed(pixel);
-  //       buffer[pixelIndex++] = img.getGreen(pixel);
-  //       buffer[pixelIndex++] = img.getBlue(pixel);
-  //     }
-  //   }
-  //   return convertedBytes.buffer.asUint8List();
-  // }
+  Uint8List imageToByteListUint8(img.Image image, int inputSize) {
+    var convertedBytes = Uint8List(1 * inputSize * inputSize * 3);
+    var buffer = Uint8List.view(convertedBytes.buffer);
+    int pixelIndex = 0;
+    for (var i = 0; i < inputSize; i++) {
+      for (var j = 0; j < inputSize; j++) {
+        var pixel = image.getPixel(j, i);
+        buffer[pixelIndex++] = img.getRed(pixel);
+        buffer[pixelIndex++] = img.getGreen(pixel);
+        buffer[pixelIndex++] = img.getBlue(pixel);
+      }
+    }
+    return convertedBytes.buffer.asUint8List();
+  }
 
   Future recognizeImage(File image) async {
     int startTime = new DateTime.now().millisecondsSinceEpoch;
@@ -189,22 +189,22 @@ class _MyAppState extends State<MyApp> {
     print("Inference took ${endTime - startTime}ms");
   }
 
-  // Future recognizeImageBinary(File image) async {
-  //   int startTime = new DateTime.now().millisecondsSinceEpoch;
-  //   var imageBytes = (await rootBundle.load(image.path)).buffer;
-  //   img.Image oriImage = img.decodeJpg(imageBytes.asUint8List());
-  //   img.Image resizedImage = img.copyResize(oriImage, height: 224, width: 224);
-  //   var recognitions = await Tflite.runModelOnBinary(
-  //     binary: imageToByteListFloat32(resizedImage, 224, 127.5, 127.5),
-  //     numResults: 6,
-  //     threshold: 0.05,
-  //   );
-  //   setState(() {
-  //     _recognitions = recognitions;
-  //   });
-  //   int endTime = new DateTime.now().millisecondsSinceEpoch;
-  //   print("Inference took ${endTime - startTime}ms");
-  // }
+  Future recognizeImageBinary(File image) async {
+    int startTime = new DateTime.now().millisecondsSinceEpoch;
+    var imageBytes = (await rootBundle.load(image.path)).buffer;
+    img.Image oriImage = img.decodeJpg(imageBytes.asUint8List());
+    img.Image resizedImage = img.copyResize(oriImage, height: 224, width: 224);
+    var recognitions = await Tflite.runModelOnBinary(
+      binary: imageToByteListFloat32(resizedImage, 224, 127.5, 127.5),
+      numResults: 6,
+      threshold: 0.05,
+    );
+    setState(() {
+      _recognitions = recognitions;
+    });
+    int endTime = new DateTime.now().millisecondsSinceEpoch;
+    print("Inference took ${endTime - startTime}ms");
+  }
 
   Future yolov2Tiny(File image) async {
     int startTime = new DateTime.now().millisecondsSinceEpoch;
@@ -463,11 +463,11 @@ class _MyAppState extends State<MyApp> {
       body: Stack(
         children: stackChildren,
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: predictImagePicker,
-      //   tooltip: 'Pick Image',
-      //   child: Icon(Icons.image),
-      // ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: predictImagePicker,
+        tooltip: 'Pick Image',
+        child: Icon(Icons.image),
+      ),
     );
   }
 }
