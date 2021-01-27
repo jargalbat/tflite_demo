@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "475928658675",
+    "project_id": "tflite-demo-fab35",
+    "storage_bucket": "tflite-demo-fab35.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:475928658675:android:01aa5cb629aba50f792d86",
+        "android_client_info": {
+          "package_name": "mn.app.tflite_demo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "475928658675-lasj9rtrdrvqu7buc9b7375725vvj7l2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANRTkKus8V_lFBb5gA8pYDwk37evjBINM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "475928658675-lasj9rtrdrvqu7buc9b7375725vvj7l2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
