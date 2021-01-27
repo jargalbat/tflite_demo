@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:tflite_demo/firebase_apis_route.dart';
+import 'package:tflite_demo/ml_vision/camera_preview_scanner.dart';
+import 'package:tflite_demo/ml_vision/material_barcode_scanner.dart';
 import 'package:tflite_demo/tf_firebase_route.dart';
 import 'package:tflite_demo/tf_local_route.dart';
+
+import 'ml_vision/picture_scanner.dart';
 
 void main() => runApp(new App());
 
@@ -9,7 +13,12 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomeRoute(),
+      routes: <String, WidgetBuilder>{
+        '/': (BuildContext context) => HomeRoute(),
+        '/PictureScanner': (BuildContext context) => PictureScanner(),
+        '/CameraPreviewScanner': (BuildContext context) => CameraPreviewScanner(),
+        '/MaterialBarcodeScanner': (BuildContext context) => const MaterialBarcodeScanner(),
+      },
     );
   }
 }
