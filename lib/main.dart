@@ -29,9 +29,9 @@ class _HomeRouteState extends State<HomeRoute> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              /// Offline
+              /// Local
               RaisedButton(
-                child: Text('Offline test'),
+                child: Text('Local test'),
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => TfLocalRoute()));
                 },
@@ -53,7 +53,7 @@ class _HomeRouteState extends State<HomeRoute> {
               RaisedButton(
                 child: Text('Firebase default'),
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => TfFirebaseRoute()));
+                  // Navigator.push(context, MaterialPageRoute(builder: (context) => TfFirebaseRoute()));
                 },
               ),
             ],

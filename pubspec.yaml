@@ -26,7 +26,8 @@ dependencies:
   cupertino_icons: ^1.0.0
 
   # Google services
-#  firebase_ml_custom: ^0.1.0
+  firebase_core: ^0.6.0
+  firebase_ml_custom: ^0.1.0
 
   # Machine learning
   tflite: ^1.1.1
@@ -55,8 +56,7 @@ flutter:
   assets:
     - assets/mobilenet_v1_1.0_224.txt
     - assets/mobilenet_v1_1.0_224.tflite
-    - assets/mobilenet_v1_1.0_224.txt
-    - assets/mobilenet_v1_1.0_224.tflite
+    - assets/labels_mobilenet_v1_224.txt
     - assets/yolov2_tiny.tflite
     - assets/yolov2_tiny.txt
     - assets/ssd_mobilenet.tflite
