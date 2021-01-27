@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tflite_demo/tf_firebase_route.dart';
 import 'package:tflite_demo/tf_local_route.dart';
 
 void main() => runApp(new App());
@@ -23,21 +24,40 @@ class _HomeRouteState extends State<HomeRoute> {
     return Scaffold(
       appBar: AppBar(title: Text('TensorFlow demo')),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            RaisedButton(
-              child: Text('Firebase'),
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => TfLocalRoute()));
-              },
-            ),
-            RaisedButton(
-              child: Text('Local'),
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => TfLocalRoute()));
-              },
-            )
-          ],
+        child: Container(
+          padding: EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              /// Offline
+              RaisedButton(
+                child: Text('Offline test'),
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => TfLocalRoute()));
+                },
+              ),
+
+              SizedBox(height: 20.0),
+
+              /// Firebase
+              RaisedButton(
+                child: Text('Firebase test'),
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => TfFirebaseRoute()));
+                },
+              ),
+
+              SizedBox(height: 20.0),
+
+              /// Firebase
+              RaisedButton(
+                child: Text('Firebase default'),
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => TfFirebaseRoute()));
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
