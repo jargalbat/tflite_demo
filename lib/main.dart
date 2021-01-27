@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tflite_demo/firebase_apis_route.dart';
 import 'package:tflite_demo/tf_firebase_route.dart';
 import 'package:tflite_demo/tf_local_route.dart';
 
@@ -29,9 +30,9 @@ class _HomeRouteState extends State<HomeRoute> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              /// Local
+              /// Local model
               RaisedButton(
-                child: Text('Local test'),
+                child: Text('Local model'),
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => TfLocalRoute()));
                 },
@@ -39,9 +40,9 @@ class _HomeRouteState extends State<HomeRoute> {
 
               SizedBox(height: 20.0),
 
-              /// Firebase
+              /// Firebase model
               RaisedButton(
-                child: Text('Firebase test'),
+                child: Text('Firebase model'),
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => TfFirebaseRoute()));
                 },
@@ -49,11 +50,11 @@ class _HomeRouteState extends State<HomeRoute> {
 
               SizedBox(height: 20.0),
 
-              /// Firebase
+              /// Firebase APIs
               RaisedButton(
-                child: Text('Firebase default'),
+                child: Text('Firebase APIs'),
                 onPressed: () {
-                  // Navigator.push(context, MaterialPageRoute(builder: (context) => TfFirebaseRoute()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => FirebaseAPIsRoute()));
                 },
               ),
             ],
